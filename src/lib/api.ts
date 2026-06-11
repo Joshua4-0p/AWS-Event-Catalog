@@ -24,10 +24,10 @@ export type CommunityEvent = {
 // AWS_Catalog_Image endpoints
 export const catalogApi = {
   getAll: (): Promise<CatalogImage[]> =>
-    fetch(`${BASE_URL}/catalog-images`, { headers }).then((r) => r.json()),
+    fetch(`${BASE_URL}/listAllAwsImage`, { headers }).then((r) => r.json()),
 
-  create: (data: Omit<CatalogImage, "id">): Promise<CatalogImage> =>
-    fetch(`${BASE_URL}/catalog-images`, {
+  create: (data: CatalogImage): Promise<CatalogImage> =>
+    fetch(`${BASE_URL}/putAwsImage`, {
       method: "POST",
       headers,
       body: JSON.stringify(data),
@@ -39,7 +39,7 @@ export const eventApi = {
   getAll: (): Promise<CommunityEvent[]> =>
     fetch(`${BASE_URL}/events`, { headers }).then((r) => r.json()),
 
-  create: (data: Omit<CommunityEvent, "id">): Promise<CommunityEvent> =>
+  create: (data: CommunityEvent): Promise<CommunityEvent> =>
     fetch(`${BASE_URL}/events`, {
       method: "POST",
       headers,

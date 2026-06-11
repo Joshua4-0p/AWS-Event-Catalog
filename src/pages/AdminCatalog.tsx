@@ -9,7 +9,7 @@ export default function AdminCatalog() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
-  const [form, setForm] = useState({ name: "", image_url: "" })
+  const [form, setForm] = useState({ id: "", name: "", image_url: "" })
 
   useEffect(() => {
     setLoading(true)
@@ -29,7 +29,7 @@ export default function AdminCatalog() {
     try {
       const created = await catalogApi.create(form)
       setImages((prev) => [created, ...prev])
-      setForm({ name: "", image_url: "" })
+      setForm({ id: "", name: "", image_url: "" })
       setSuccess("Image uploaded successfully!")
     } catch {
       setError("Failed to upload image.")
@@ -46,6 +46,14 @@ export default function AdminCatalog() {
           Upload AWS Service Image
         </h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <input
+            type="text"
+            placeholder="ID"
+            value={form.id}
+            onChange={(e) => setForm({ ...form, id: e.target.value })}
+            className="rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus:border-ring focus:ring-2 focus:ring-ring/30"
+            required
+          />
           <input
             type="text"
             placeholder="Service name (e.g. Amazon S3)"
